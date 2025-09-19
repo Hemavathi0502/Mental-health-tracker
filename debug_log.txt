@@ -1,0 +1,9 @@
+Email: raksh@gmail.com
+Mood: happy
+=== New Submission ===
+Email: raksh@gmail.com
+Mood: happy
+✅ INSERT SUCCESS
+Insert success: raksh@gmail.com - sad
+Insert success: raksh@gmail.com - happy
+Insert success: raksh@gmail.com - sad

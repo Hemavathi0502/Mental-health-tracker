@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photo Collage Maker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+    }
+    #upload {
+      margin-top: 20px;
+    }
+    .preview img {
+      margin: 10px;
+      max-width: 200px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Create Your Mood Collage</h2>
+  <input type="file" id="upload" multiple accept="image/*">
+  <div class="preview" id="previewArea"></div>
+
+  <script>
+    const upload = document.getElementById("upload");
+    const preview = document.getElementById("previewArea");
+
+    upload.addEventListener("change", () => {
+      preview.innerHTML = '';
+      Array.from(upload.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mood Chatbox</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, hsl(318, 46%, 89%), hsl(218, 86%, 89%)); 
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding-top: 60px;
+    }
+
+    .chat-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease;
+    }
+
+    h2 {
+      text-align: center;
+      color: #4b0082;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      resize: none;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    textarea:focus {
+      border-color: #7f5af0;
+      outline: none;
+      box-shadow: 0 0 5px #7f5af0;
+    }
+
+    .mood-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+      justify-content: center;
+    }
+
+    .mood-buttons button {
+      background: hsl(7, 87%, 85%);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.3s ease, background-color 0.3s;
+    }
+
+    .mood-buttons button:hover {
+      background-color: hwb(346 36% 0%);
+      color: white;
+      transform: scale(1.08);
+    }
+
+    .actions {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .actions button {
+      padding: 10px 20px;
+      background-color: #7f5af0;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 0 10px;
+      transition: transform 0.3s ease, background-color 0.3s;
+    }
+
+    .actions button:hover {
+      background-color: #5b3cd3;
+      transform: scale(1.05);
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+      text-align: center;
+      animation: fadeIn 0.8s ease;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    #exploreBtn {
+      display: none;
+      margin-top: 15px;
+      background-color: #28a745;
+      padding: 12px 24px;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      animation: slideUp 0.6s ease-in-out;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #exploreBtn:hover {
+      background-color: #218838;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h2>🧠 Mood Chatbox</h2>
+
+    <form id="moodForm" method="POST" action="chatbox.php" target="submitFrame">
+      <textarea id="moodInput" name="mood_text" placeholder="How are you feeling right now?"></textarea>
+
+      <div class="mood-buttons">
+        <button type="button" onclick="addMood('sad')">Sad</button>
+        <button type="button" onclick="addMood('angry')">Angry</button>
+        <button type="button" onclick="addMood('anxious')">Anxious</button>
+        <button type="button" onclick="addMood('tired')">Tired</button>
+        <button type="button" onclick="addMood('depressed')">Depressed</button>
+        <button type="button" onclick="addMood('lonely')">Lonely</button>
+        <button type="button" onclick="addMood('worthless')">Worthless</button>
+        <button type="button" onclick="addMood('stressed')">Stressed</button>
+        <button type="button" onclick="addMood('crying')">Crying</button>
+        <button type="button" onclick="addMood('bored')">Bored</button>
+      </div>
+
+      <div class="actions">
+        <button type="button" onclick="startListening()">🎙️ Speak</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <iframe name="submitFrame" style="display:none;" onload="displayResult()"></iframe>
+
+    <div id="result"></div>
+    <div style="text-align: center;">
+      <button id="exploreBtn" onclick="location.href='explore.php'">🌟 Explore</button>
+    </div>
+  </div>
+
+  <script>
+    function addMood(mood) {
+      document.getElementById("moodInput").value = mood;
+    }
+
+    function startListening() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Speech recognition not supported in this browser.");
+        return;
+      }
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById("moodInput").value = transcript;
+      };
+      recognition.start();
+    }
+
+    function displayResult() {
+      const iframe = document.querySelector("iframe[name='submitFrame']");
+      const resultDiv = document.getElementById("result");
+      try {
+        const response = iframe.contentDocument.body.innerHTML;
+        if (response.trim()) {
+          resultDiv.innerHTML = response;
+          document.getElementById("exploreBtn").style.display = "inline-block";
+        }
+      } catch (err) {
+        console.error("Error reading response");
+      }
+    }
+  </script>
+</body>
+</html>

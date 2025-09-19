@@ -1,0 +1,23 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <form action="register.php" method="POST" onsubmit="return validateRegister()">
+            <h2>Register</h2>
+            <input type="email" name="email" id="reg-email" placeholder="Enter Email" required>
+            <input type="password" name="password" id="reg-password" placeholder="Enter Password" required>
+            <input type="password" name="confirm_password" id="reg-confirm-password" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+</body>
+</html>

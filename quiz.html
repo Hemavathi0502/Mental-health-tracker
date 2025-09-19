@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fun Mood Quiz</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #eef3fc;
+      padding: 20px;
+    }
+    .quiz-box {
+      max-width: 600px;
+      margin: auto;
+      background: #d0e3ff;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background: #005ec2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <h2>What's Your Mood Animal?</h2>
+    <form id="quizForm">
+      <label>How do you feel today?</label><br>
+      <input type="radio" name="mood" value="calm"> Calm<br>
+      <input type="radio" name="mood" value="energetic"> Energetic<br>
+      <input type="radio" name="mood" value="tired"> Tired<br>
+      <input type="radio" name="mood" value="anxious"> Anxious<br><br>
+      <button type="button" onclick="showResult()">Get Result</button>
+    </form>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function showResult() {
+      const mood = document.querySelector('input[name="mood"]:checked');
+      let result = "";
+      if (!mood) {
+        result = "Please select a mood!";
+      } else {
+        switch (mood.value) {
+          case "calm": result = "You're a Cat - calm, curious, and peaceful."; break;
+          case "energetic": result = "You're a Dolphin - playful, fast, and smart!"; break;
+          case "tired": result = "You're a Koala - you need rest and snuggles."; break;
+          case "anxious": result = "You're a Rabbit - alert, aware, and sensitive."; break;
+        }
+      }
+      document.getElementById("result").innerText = result;
+    }
+  </script>
+</body>
+</html>

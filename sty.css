@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('r1.jpg');
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Welcome screen (initially hidden) */
+.welcome-screen {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: opacity 1s ease;
+  z-index: 2;
+}
+
+.welcome-screen.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.welcome-screen h1 {
+  font-size: 2.3rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: hwb(0 0% 93%);
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+.welcome-screen span {
+  color: hsl(0, 3%, 7%);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.welcome-screen button {
+  padding: 8px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 20px;
+  background-color: hsl(62, 10%, 50%);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.welcome-screen button:hover {
+  background-color: hsl(0, 2%, 62%);
+  transform: scale(1.05);
+}
+.buttons button {
+  margin: 10px;
+  padding: 10px 20px;
+}

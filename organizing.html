@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Organize Your Mind</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f3fff5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #d4fdd8;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+    }
+    ul {
+      margin-top: 20px;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Organize Your Thoughts</h2>
+    <input type="text" id="taskInput" placeholder="Add your task...">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    function addTask() {
+      const task = document.getElementById('taskInput').value;
+      if (task.trim() === '') return;
+      const li = document.createElement('li');
+      li.textContent = task;
+      document.getElementById('taskList').appendChild(li);
+      document.getElementById('taskInput').value = '';
+    }
+  </script>
+</body>
+</html>
